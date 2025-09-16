@@ -3,6 +3,7 @@
         // Global extensions
         "formulahendry.auto-rename-tag",
         // Local extensions
+        "expo.vscode-expo-tools",
         "astro-build.astro-vscode",
         "njpwerner.autodocstring",
         "Boto3typed.boto3-ide",
