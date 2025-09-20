@@ -1,17 +1,18 @@
 # ===============================
-# SnapNews Project Makefile
+# Kaleening Project Makefile
 # ===============================
 
 # --- Core Configuration ---
 STACK ?= --all
 ENV ?= dev
 SOURCE ?= all
+PROJECT_NAME ?= Kaleening
 
 # --- Project Paths ---
 SCRIPTS_DIR := .scripts
-BACKEND_DIR := backend
+BACKEND_DIR := aws
 ADMIN_DIR := admin
-MOBILE_DIR := mobile
+MOBILE_DIR := app
 
 # --- Categorized Script Directories ---
 AWS_SCRIPTS_DIR := $(SCRIPTS_DIR)/aws
@@ -36,7 +37,7 @@ include .makefiles/setup.mk
 # ===============================
 
 help:
-	@echo "SnapNews Project - Available Commands"
+	@echo "Kaleening Project - Available Commands"
 	@echo "====================================="
 	@echo ""
 	@echo "Usage: make [target] [VAR=value]"
@@ -74,8 +75,7 @@ help:
 	@echo ""
 	@echo "📋 Quick Examples:"
 	@echo "  make deploy STACK=Api"
-	@echo "  make test-reader SOURCE=NDTV"
-	@echo "  make hotswap STACK=Lambda"
+	@echo "  make hotswap STACK=Api"
 
 # ===============================
 # LEGACY COMPATIBILITY
@@ -95,7 +95,7 @@ clean:
 	cd $(MOBILE_DIR) && rm -rf dist .expo node_modules/.cache || true
 
 status:
-	@echo "📊 SnapNews Project Status:"
+	@echo "📊 Kaleening Project Status:"
 	@echo "=========================="
 	@echo "  Environment: $(ENV)"
 	@echo "  Current stack: $(STACK)"

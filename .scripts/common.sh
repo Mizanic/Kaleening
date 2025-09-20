@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ===============================
-# SnapNews Common Utilities
+# Kaleening Common Utilities
 # ===============================
 # Source this file in other scripts: source "$(dirname "$0")/common.sh"
 
@@ -15,10 +15,10 @@ export CYAN='\033[0;36m'
 export NC='\033[0m' # No Color
 
 # --- Configuration ---
-export SNAPNEWS_PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-export SNAPNEWS_SCRIPTS_DIR="${SNAPNEWS_PROJECT_ROOT}/.scripts"
-export SNAPNEWS_BACKEND_DIR="${SNAPNEWS_PROJECT_ROOT}/backend"
-export SNAPNEWS_CONFIG_FILE="${SNAPNEWS_PROJECT_ROOT}/config.json"
+export KALEENING_PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export KALEENING_SCRIPTS_DIR="${KALEENING_PROJECT_ROOT}/.scripts"
+export KALEENING_BACKEND_DIR="${KALEENING_PROJECT_ROOT}/backend"
+export KALEENING_CONFIG_FILE="${KALEENING_PROJECT_ROOT}/config.json"
 
 # --- Logging Functions ---
 log_info() {
@@ -38,7 +38,7 @@ log_error() {
 }
 
 log_debug() {
-    [[ "${SNAPNEWS_DEBUG:-}" == "1" ]] && echo -e "${PURPLE}🐛 $1${NC}" >&2
+    [[ "${KALEENING_DEBUG:-}" == "1" ]] && echo -e "${PURPLE}🐛 $1${NC}" >&2
 }
 
 fatal() {
@@ -121,8 +121,8 @@ get_project_config() {
     local key="$1"
     local default="${2:-}"
     
-    if [[ -f "$SNAPNEWS_CONFIG_FILE" ]]; then
-        jq -r ".$key // \"$default\"" "$SNAPNEWS_CONFIG_FILE" 2>/dev/null || echo "$default"
+    if [[ -f "$KALEENING_CONFIG_FILE" ]]; then
+        jq -r ".$key // \"$default\"" "$KALEENING_CONFIG_FILE" 2>/dev/null || echo "$default"
     else
         echo "$default"
     fi
@@ -134,7 +134,7 @@ show_script_header() {
     local description="$2"
     
     echo -e "${CYAN}======================================${NC}"
-    echo -e "${CYAN}SnapNews: $script_name${NC}"
+    echo -e "${CYAN}Kaleening: $script_name${NC}"
     echo -e "${CYAN}======================================${NC}"
     [[ -n "$description" ]] && echo -e "${BLUE}$description${NC}"
     echo
@@ -142,7 +142,7 @@ show_script_header() {
 
 # --- Cleanup helpers ---
 cleanup_temp_files() {
-    local pattern="${1:-/tmp/snapnews-*}"
+    local pattern="${1:-/tmp/kaleening-*}"
     rm -f $pattern 2>/dev/null || true
 }
 

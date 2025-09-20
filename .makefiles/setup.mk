@@ -34,7 +34,7 @@ set-sources:
 init: init-project
 
 init-project:
-	@echo "🚀 Initializing SnapNews project..."
+	@echo "🚀 Initializing Kaleening project..."
 	@$(MAKE) check-deps
 	@$(MAKE) bootstrap
 	@$(MAKE) layers

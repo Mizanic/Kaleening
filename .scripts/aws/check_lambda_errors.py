@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 
 # === CONFIG ===
 REGION = "us-east-1"
-LAMBDA_PREFIX = "/aws/lambda/SnapNews-"
+LAMBDA_PREFIX = "/aws/lambda/Kaleening-"
 HOURS_LOOKBACK = 24 * 3  # Look back 24 hours only
 MAX_EVENTS_PER_GROUP = 10  # Reduced from 20 to save on data transfer
 MAX_MESSAGE_LENGTH = 150  # Reduced from 200 to save on data transfer

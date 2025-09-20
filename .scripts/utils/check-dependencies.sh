@@ -3,7 +3,7 @@
 # Source common utilities
 source "$(dirname "$0")/../common.sh"
 
-show_script_header "Dependency Checker" "Check system dependencies for SnapNews"
+show_script_header "Dependency Checker" "Check system dependencies for Kaleening"
 setup_cleanup
 
 # Required system dependencies
