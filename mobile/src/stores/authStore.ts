@@ -4,13 +4,10 @@
  * Clean state management for authentication.
  * Uses AuthService for all authentication logic.
  */
-
-import { MMKV } from "react-native-mmkv";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { AuthService } from "@/services/authService";
-
-const storage = new MMKV();
 
 interface User {
     id: string;
@@ -102,11 +99,7 @@ export const useAuthStore = create<AuthState>()(
         }),
         {
             name: "auth-storage",
-            storage: createJSONStorage(() => ({
-                getItem: (name) => storage.getString(name) ?? null,
-                setItem: (name, value) => storage.set(name, value),
-                removeItem: (name) => storage.delete(name),
-            })),
+            storage: createJSONStorage(() => AsyncStorage),
             // Only persist user data
             partialize: (state) => ({ user: state.user }),
             // Handle rehydration
@@ -127,8 +120,8 @@ export const useAuthStore = create<AuthState>()(
                     }
                 }
             },
-        }
-    )
+        },
+    ),
 );
 
 // Convenience hook that matches the old interface
