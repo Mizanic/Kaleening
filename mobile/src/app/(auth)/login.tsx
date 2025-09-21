@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
-import { Spacing } from "@/styles";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/stores/authStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -31,8 +30,8 @@ const LoginScreen: React.FC = () => {
 
     return (
         <View className="flex-1 px-lg justify-center items-center" style={{ backgroundColor: colors.surface.primary }}>
-            <View className="items-center pb-xl mb-md px-1" style={{ paddingTop: insets.top + Spacing.lg }}>
-                <Text className="text-2xl font-bold mb-md" style={[{ color: colors.content.primary }]}>
+            <View className="items-center pb-xl mb-md px-1" style={{ paddingTop: insets.top }}>
+                <Text className="text-4xl font-bold mb-md" style={[{ color: colors.content.primary }]}>
                     Kaleening
                 </Text>
             </View>

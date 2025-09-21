@@ -36,7 +36,7 @@ const Settings: React.FC = () => {
     };
 
     return (
-        <>
+        <View className="flex-1" style={{ backgroundColor: colors.surface.primary }}>
             <Stack.Screen
                 options={{
                     headerShown: false,
@@ -96,7 +96,7 @@ const Settings: React.FC = () => {
                     </View>
                 </ScrollView>
             </View>
-        </>
+        </View>
     );
 };
 

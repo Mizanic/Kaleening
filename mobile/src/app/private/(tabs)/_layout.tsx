@@ -1,17 +1,32 @@
 import React from "react";
-import { View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import ScheduledPosts from "./index";
-import Drafts from "./drafts";
-
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
+import { DrawerToggleButton } from "@react-navigation/drawer";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useTheme } from "@/hooks/useTheme";
 
 const MainTabs: React.FC = () => {
-    const params = useLocalSearchParams();
+    const { colors } = useTheme();
 
     return (
-        <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
+        <Tabs
+            screenOptions={{
+                tabBarActiveTintColor: colors.interactive.primary.default,
+                tabBarInactiveTintColor: colors.content.secondary,
+                tabBarStyle: {
+                    backgroundColor: colors.surface.secondary,
+                    borderTopColor: colors.border.secondary,
+                },
+                headerShown: true,
+                headerLeft: () => <DrawerToggleButton tintColor={colors.content.primary} />,
+                headerStyle: {
+                    backgroundColor: colors.surface.secondary,
+                },
+                headerTintColor: colors.content.primary,
+                headerTitleStyle: {
+                    color: colors.content.primary,
+                },
+            }}
+        >
             <Tabs.Screen
                 name="index"
                 options={{
@@ -20,10 +35,10 @@ const MainTabs: React.FC = () => {
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="drafts"
                 options={{
-                    title: "Settings",
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+                    title: "Drafts",
+                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="file-text-o" color={color} />,
                 }}
             />
         </Tabs>
