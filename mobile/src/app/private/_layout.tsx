@@ -7,6 +7,7 @@ const PrivateLayout: React.FC = () => {
 
     return (
         <Drawer
+            initialRouteName="(tabs)"
             screenOptions={{
                 drawerStyle: {
                     backgroundColor: colors.surface.primary,
@@ -28,8 +29,16 @@ const PrivateLayout: React.FC = () => {
             <Drawer.Screen
                 name="(tabs)"
                 options={{
-                    drawerLabel: "Home",
-                    title: "Home",
+                    drawerLabel: "Dashboard",
+                    title: "Dashboard",
+                    headerShown: false,
+                }}
+            />
+            <Drawer.Screen
+                name="mosques"
+                options={{
+                    drawerLabel: "Mosques",
+                    title: "Mosques",
                     headerShown: false,
                 }}
             />

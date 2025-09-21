@@ -38,7 +38,7 @@ const MainTabs: React.FC = () => {
                     }}
                 />
                 <Tabs.Screen
-                    name="drafts"
+                    name="mosques"
                     options={{
                         title: "Mosques",
                         tabBarIcon: ({ color }) => <MaterialIcons size={28} name="mosque" color={color} />,
