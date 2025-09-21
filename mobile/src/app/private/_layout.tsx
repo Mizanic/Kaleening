@@ -1,19 +1,19 @@
 import React from "react";
 import { Drawer } from "expo-router/drawer";
 import { useTheme } from "@/hooks/useTheme";
+import DrawerContent from "@/components/layout/DrawerContent";
 
 const PrivateLayout: React.FC = () => {
     const { colors } = useTheme();
 
     return (
         <Drawer
-            initialRouteName="(tabs)"
+            drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
                 drawerStyle: {
                     backgroundColor: colors.surface.primary,
                 },
-                drawerActiveTintColor: colors.interactive.primary.default,
-                drawerInactiveTintColor: colors.content.secondary,
+                drawerActiveBackgroundColor: colors.interactive.neutral.pressed,
                 drawerLabelStyle: {
                     color: colors.content.primary,
                 },
@@ -26,6 +26,14 @@ const PrivateLayout: React.FC = () => {
                 },
             }}
         >
+            <Drawer.Screen
+                name="my-profile"
+                options={{
+                    drawerLabel: () => null,
+                    title: "My Profile",
+                    headerShown: false,
+                }}
+            />
             <Drawer.Screen
                 name="(tabs)"
                 options={{
@@ -47,14 +55,6 @@ const PrivateLayout: React.FC = () => {
                 options={{
                     drawerLabel: "All Mosques",
                     title: "All Mosques",
-                    headerShown: false,
-                }}
-            />
-            <Drawer.Screen
-                name="my-profile"
-                options={{
-                    drawerLabel: "My Profile",
-                    title: "My Profile",
                     headerShown: false,
                 }}
             />
