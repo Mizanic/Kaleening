@@ -27,18 +27,18 @@ const PrivateLayout: React.FC = () => {
             }}
         >
             <Drawer.Screen
-                name="my-profile"
-                options={{
-                    drawerLabel: () => null,
-                    title: "My Profile",
-                    headerShown: false,
-                }}
-            />
-            <Drawer.Screen
                 name="(tabs)"
                 options={{
                     drawerLabel: "Dashboard",
                     title: "Dashboard",
+                    headerShown: false,
+                }}
+            />
+            <Drawer.Screen
+                name="my-profile"
+                options={{
+                    drawerItemStyle: { display: "none" },
+                    title: "My Profile",
                     headerShown: false,
                 }}
             />
