@@ -1,8 +1,8 @@
 import React from "react";
 import MosquesScreen from "@/screens/MosquesScreen";
 
-const MosquesDrawer: React.FC = () => {
+const MyMosquesDrawer: React.FC = () => {
     return <MosquesScreen />;
 };
 
-export default MosquesDrawer;
+export default MyMosquesDrawer;

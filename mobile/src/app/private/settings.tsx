@@ -5,6 +5,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { useSettingsStore } from "@/stores/settingStore";
 import { Theme } from "@/types/settingsTypes";
 import * as Haptics from "expo-haptics";
+import BackButton from "@/components/ui/BackButton";
 
 const Settings: React.FC = () => {
     const { theme, hapticFeedback, setTheme, setHapticFeedback } = useSettingsStore();
@@ -35,8 +36,7 @@ const Settings: React.FC = () => {
             <Stack.Screen
                 options={{
                     headerShown: true,
-                    headerBackButtonMenuEnabled: true,
-                    headerBackButtonDisplayMode: "minimal",
+                    headerLeft: () => <BackButton />,
                     headerStyle: {
                         backgroundColor: colors.surface.secondary,
                     },

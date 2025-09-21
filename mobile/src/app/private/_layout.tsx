@@ -35,10 +35,26 @@ const PrivateLayout: React.FC = () => {
                 }}
             />
             <Drawer.Screen
-                name="mosques"
+                name="my-mosques"
                 options={{
-                    drawerLabel: "Mosques",
-                    title: "Mosques",
+                    drawerLabel: "My Mosques",
+                    title: "My Mosques",
+                    headerShown: false,
+                }}
+            />
+            <Drawer.Screen
+                name="all-mosques"
+                options={{
+                    drawerLabel: "All Mosques",
+                    title: "All Mosques",
+                    headerShown: false,
+                }}
+            />
+            <Drawer.Screen
+                name="my-profile"
+                options={{
+                    drawerLabel: "My Profile",
+                    title: "My Profile",
                     headerShown: false,
                 }}
             />
