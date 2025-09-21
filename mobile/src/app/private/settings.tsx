@@ -1,14 +1,12 @@
 import React from "react";
-import { Stack, useRouter } from "expo-router";
-import { View, Text, ScrollView, Pressable, Switch, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Stack } from "expo-router";
+import { View, Text, ScrollView, Pressable, Switch } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
 import { useSettingsStore } from "@/stores/settingStore";
 import { Theme } from "@/types/settingsTypes";
 import * as Haptics from "expo-haptics";
 
 const Settings: React.FC = () => {
-    const router = useRouter();
     const { theme, hapticFeedback, setTheme, setHapticFeedback } = useSettingsStore();
     const { colors } = useTheme();
 
@@ -37,11 +35,8 @@ const Settings: React.FC = () => {
             <Stack.Screen
                 options={{
                     headerShown: true,
-                    headerLeft: () => (
-                        <TouchableOpacity onPress={() => router.back()} style={{ marginLeft: 8, padding: 8 }}>
-                            <Ionicons name="arrow-back" size={24} color={colors.content.primary} />
-                        </TouchableOpacity>
-                    ),
+                    headerBackButtonMenuEnabled: true,
+                    headerBackButtonDisplayMode: "minimal",
                     headerStyle: {
                         backgroundColor: colors.surface.secondary,
                     },

@@ -27,7 +27,6 @@ const RootLayout: React.FC = () => {
                         {/* Private routes - only accessible if authenticated */}
                         <Stack.Protected guard={isAuthenticated}>
                             <Stack.Screen name="private" options={{ headerShown: false }} />
-                            <Stack.Screen name="private/settings" options={{ headerShown: false }} />
                         </Stack.Protected>
                     </Stack>
                 </SafeAreaProvider>

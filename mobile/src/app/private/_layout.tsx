@@ -28,7 +28,7 @@ const PrivateLayout: React.FC = () => {
             <Drawer.Screen
                 name="(tabs)"
                 options={{
-                    drawerLabel: "Main",
+                    drawerLabel: "Home",
                     title: "Home",
                     headerShown: false,
                 }}
