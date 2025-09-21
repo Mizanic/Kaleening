@@ -33,8 +33,8 @@ const MainTabs: React.FC = () => {
                 <Tabs.Screen
                     name="index"
                     options={{
-                        title: "Home",
-                        tabBarIcon: ({ color }) => <MaterialIcons size={28} name="home" color={color} />,
+                        title: "Dashboard",
+                        tabBarIcon: ({ color }) => <MaterialIcons size={28} name="dashboard" color={color} />,
                     }}
                 />
                 <Tabs.Screen
