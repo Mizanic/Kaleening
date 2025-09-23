@@ -8,9 +8,10 @@ import { Mosque } from "@/types/mosqueTypes";
 interface MosqueCardProps {
     mosque: Mosque;
     onPress?: (mosque: Mosque) => void;
+    onViewPress?: (mosque: Mosque) => void;
 }
 
-const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress }) => {
+const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress }) => {
     const { colors } = useTheme();
 
     return (
@@ -31,7 +32,7 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress }) => {
                     <View style={styles.addressContainer}>
                         <Ionicons name="location-sharp" size={14} color={colors.content.secondary} />
                         <View style={styles.addressTextContainer}>
-                            <Text style={[styles.addressText, { color: colors.content.secondary }]} numberOfLines={2}>
+                            <Text style={[styles.addressText, { color: colors.content.secondary }]} numberOfLines={3}>
                                 {mosque.address.street}
                             </Text>
                             <Text style={[styles.cityStateText, { color: colors.content.secondary }]} numberOfLines={1}>
@@ -42,15 +43,26 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress }) => {
                 </View>
             </View>
 
-            {/* Row 2: Integrated Button Row */}
-            <TouchableOpacity
-                style={[styles.buttonRow, { backgroundColor: colors.interactive.primary.default }]}
-                onPress={() => onPress?.(mosque)}
-                activeOpacity={0.8}
-            >
-                <Text style={[styles.buttonText, { color: colors.pure.white }]}>Book Appointment</Text>
-                <Ionicons name="arrow-forward" size={20} color={colors.pure.white} />
-            </TouchableOpacity>
+            {/* Row 2: Pure Button Row */}
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={[styles.button, { backgroundColor: colors.interactive.secondary.default }]}
+                    onPress={() => (onViewPress ? onViewPress(mosque) : onPress?.(mosque))}
+                    activeOpacity={0.85}
+                >
+                    <Ionicons name="eye-outline" size={18} color={colors.content.primary} />
+                    <Text style={[styles.buttonText, { color: colors.content.primary }]}>View Mosque</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, { backgroundColor: colors.interactive.primary.default }]}
+                    onPress={() => onPress?.(mosque)}
+                    activeOpacity={0.85}
+                >
+                    <Text style={[styles.buttonText, { color: colors.pure.white }]}>Book Cleaning</Text>
+                    <Ionicons name="arrow-forward" size={18} color={colors.pure.white} />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -106,12 +118,15 @@ const styles = StyleSheet.create({
     },
     buttonRow: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        width: "100%",
+    },
+    button: {
+        width: "50%",
+        flexDirection: "row",
         alignItems: "center",
-        paddingVertical: 16,
-        paddingHorizontal: 16,
-        borderTopWidth: 1,
-        borderTopColor: "rgba(255, 255, 255, 0.1)",
+        justifyContent: "center",
+        gap: 8,
+        paddingVertical: 14,
     },
     buttonText: {
         ...Typography.button.medium,

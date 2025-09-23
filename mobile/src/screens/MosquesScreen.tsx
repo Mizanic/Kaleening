@@ -12,8 +12,13 @@ const MosquesScreen: React.FC = () => {
     const { mosques, loading, error } = useMosqueData();
 
     const handleMosquePress = (mosque: Mosque) => {
+        // TODO: Navigate to mosque booking screen
+        console.log("Book cleaning for:", mosque.name);
+    };
+
+    const handleViewPress = (mosque: Mosque) => {
         // TODO: Navigate to mosque details screen
-        console.log("Selected mosque:", mosque.name);
+        console.log("View mosque:", mosque.name);
     };
 
     if (loading) {
@@ -66,7 +71,7 @@ const MosquesScreen: React.FC = () => {
 
                 <View style={styles.mosquesList}>
                     {mosques.map((mosque) => (
-                        <MosqueCard key={mosque.id} mosque={mosque} onPress={handleMosquePress} />
+                        <MosqueCard key={mosque.id} mosque={mosque} onPress={handleMosquePress} onViewPress={handleViewPress} />
                     ))}
                 </View>
             </ScrollView>
