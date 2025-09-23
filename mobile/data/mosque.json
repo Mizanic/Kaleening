@@ -1,0 +1,100 @@
+{
+    "mosques": [
+        {
+            "id": "1",
+            "name": "Masjid-E-Noor",
+            "photos": [
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150"
+            ],
+            "address": {
+                "street": "22/23, 3rd Cross Rd, Bandepalya, Muneshwara Nagar",
+                "city": "Bengaluru",
+                "state": "Karnataka",
+                "country": "India",
+                "pinCode": "560068"
+            },
+            "carpetAreaSqFt": 3000,
+            "floors": 2,
+            "capacity": 1000,
+            "coordinates": {
+                "latitude": 12.89935985286903,
+                "longitude": 77.63888856003254
+            },
+            "plusCode": "VJXQ+MG Bengaluru, Karnataka"
+        },
+        {
+            "id": "2",
+            "name": "Masjid E Khudadaad",
+            "photos": [
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150"
+            ],
+            "address": {
+                "street": "Anjanapura Main Road, Gottigere",
+                "city": "Bengaluru",
+                "state": "Karnataka",
+                "country": "India",
+                "pinCode": "560083"
+            },
+            "carpetAreaSqFt": 2000,
+            "floors": 1,
+            "capacity": 500,
+            "coordinates": {
+                "latitude": 12.853890955207413,
+                "longitude": 77.5825573735785
+            },
+            "plusCode": "VH3M+G2P, South Avenue, Gottigere, Bengaluru, Karnataka 560083"
+        },
+        {
+            "id": "3",
+            "name": "Masjid e Usman e ghani",
+            "photos": [
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150"
+            ],
+            "address": {
+                "street": "Pillaganahalli, Bengaluru, Karnataka 560083",
+                "city": "Bengaluru",
+                "state": "Karnataka",
+                "country": "India",
+                "pinCode": "560083"
+            },
+            "carpetAreaSqFt": 1500,
+            "floors": 1,
+            "capacity": 700,
+            "coordinates": {
+                "latitude": 12.837461220133555,
+                "longitude": 77.57560208696984
+            },
+            "plusCode": "RHPG+W7F, Pillaganahalli, Bengaluru, Karnataka 560083"
+        },
+        {
+            "id": "4",
+            "name": "Masjid-e-Noor",
+            "photos": [
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150",
+                "https://via.placeholder.com/150"
+            ],
+            "address": {
+                "street": "31, 20th Main Rd, 5th Phase, KR Layout, J P Nagar Phase 5, J. P. Nagar",
+                "city": "Bengaluru",
+                "state": "Karnataka",
+                "country": "India",
+                "pinCode": "560078"
+            },
+            "carpetAreaSqFt": 5000,
+            "floors": 3,
+            "capacity": 2000,
+            "coordinates": {
+                "latitude": 12.904801942570698,
+                "longitude": 77.58809500281943
+            },
+            "plusCode": "WH3Q+V6 Bengaluru, Karnataka"
+        }
+    ]
+}
