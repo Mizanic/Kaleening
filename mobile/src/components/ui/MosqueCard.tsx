@@ -16,8 +16,8 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress })
 
     return (
         <View style={[styles.card, { backgroundColor: colors.surface.secondary, borderColor: colors.border.secondary }]}>
-            {/* Row 1: Photo and Details */}
-            <View style={styles.topRow}>
+            {/* Fixed Height Container for Photo and Details */}
+            <View style={styles.contentArea}>
                 <Image
                     source={{ uri: mosque.photos[0] }}
                     style={styles.image}
@@ -32,10 +32,11 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress })
                     <View style={styles.addressContainer}>
                         <Ionicons name="location-sharp" size={14} color={colors.content.secondary} />
                         <View style={styles.addressTextContainer}>
-                            <Text style={[styles.addressText, { color: colors.content.secondary }]} numberOfLines={3}>
+                            <Text style={[styles.addressText, { color: colors.content.secondary }]} numberOfLines={4}>
                                 {mosque.address.street}
                             </Text>
-                            <Text style={[styles.cityStateText, { color: colors.content.secondary }]} numberOfLines={1}>
+                            <View style={styles.spacer} />
+                            <Text style={[styles.cityStateText, { color: colors.content.tertiary }]} numberOfLines={1}>
                                 {mosque.address.city}, {mosque.address.state}
                             </Text>
                         </View>
@@ -43,10 +44,10 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress })
                 </View>
             </View>
 
-            {/* Row 2: Pure Button Row */}
+            {/* Fixed Height Button Row */}
             <View style={styles.buttonRow}>
                 <TouchableOpacity
-                    style={[styles.button, { backgroundColor: colors.interactive.secondary.default }]}
+                    style={styles.button}
                     onPress={() => (onViewPress ? onViewPress(mosque) : onPress?.(mosque))}
                     activeOpacity={0.85}
                 >
@@ -82,18 +83,21 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 2,
     },
-    topRow: {
+    contentArea: {
         flexDirection: "row",
+        height: 130, // Fixed height for content area
     },
     image: {
         width: 110,
-        height: 110,
+        height: 130, // Fill entire content area height
         resizeMode: "cover",
+        borderRadius: 0,
     },
     contentContainer: {
         flex: 1,
         padding: 12,
         justifyContent: "space-between",
+        gap: 8,
     },
     mosqueName: {
         ...Typography.heading.h5,
@@ -101,24 +105,30 @@ const styles = StyleSheet.create({
     },
     addressContainer: {
         flexDirection: "row",
-        alignItems: "flex-start",
-        marginTop: 6,
-        gap: 6,
+        alignItems: "stretch",
+        gap: 8,
+        flex: 1,
     },
     addressTextContainer: {
         flex: 1,
+        justifyContent: "space-between",
     },
     addressText: {
         ...Typography.bodyText.small,
-        lineHeight: 18,
+        lineHeight: 16,
     },
     cityStateText: {
-        ...Typography.captionText.large,
-        marginTop: 2,
+        ...Typography.captionText.medium,
+        lineHeight: 14,
+        marginTop: 4,
+    },
+    spacer: {
+        flex: 1,
     },
     buttonRow: {
         flexDirection: "row",
         width: "100%",
+        height: 50, // Fixed button row height
     },
     button: {
         width: "50%",
@@ -126,7 +136,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         gap: 8,
-        paddingVertical: 14,
+        paddingVertical: 16,
     },
     buttonText: {
         ...Typography.button.medium,
