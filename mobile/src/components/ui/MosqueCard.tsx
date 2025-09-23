@@ -3,29 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity, Dimensions, StyleSheet
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { Typography } from "../../styles/typography";
-
-// TypeScript interfaces for mosque data
-export interface MosqueAddress {
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    pinCode: string;
-}
-
-export interface Mosque {
-    id: string;
-    name: string;
-    photos: string[];
-    address: MosqueAddress;
-    coordinates: {
-        latitude: number;
-        longitude: number;
-    };
-    description?: string;
-    establishedYear?: number;
-    capacity?: number;
-}
+import { Mosque, MosqueAddress } from "@/types/mosqueTypes";
 
 interface MosqueCardProps {
     mosque: Mosque;
@@ -163,40 +141,22 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, showMapButton 
                 </View>
 
                 {/* Additional Info */}
-                {(mosque.establishedYear || mosque.capacity) && (
+                {mosque.capacity && (
                     <View style={styles.additionalInfo}>
-                        {mosque.establishedYear && (
-                            <View style={styles.infoItem}>
-                                <Ionicons name="calendar" size={16} color={colors.content.tertiary} />
-                                <Text
-                                    style={[
-                                        styles.infoText,
-                                        {
-                                            color: colors.content.tertiary,
-                                            fontFamily: Typography.captionText.small.fontFamily,
-                                        },
-                                    ]}
-                                >
-                                    Est. {mosque.establishedYear}
-                                </Text>
-                            </View>
-                        )}
-                        {mosque.capacity && (
-                            <View style={styles.infoItem}>
-                                <Ionicons name="people" size={16} color={colors.content.tertiary} />
-                                <Text
-                                    style={[
-                                        styles.infoText,
-                                        {
-                                            color: colors.content.tertiary,
-                                            fontFamily: Typography.captionText.small.fontFamily,
-                                        },
-                                    ]}
-                                >
-                                    Capacity: {mosque.capacity}
-                                </Text>
-                            </View>
-                        )}
+                        <View style={styles.infoItem}>
+                            <Ionicons name="people" size={16} color={colors.content.tertiary} />
+                            <Text
+                                style={[
+                                    styles.infoText,
+                                    {
+                                        color: colors.content.tertiary,
+                                        fontFamily: Typography.captionText.small.fontFamily,
+                                    },
+                                ]}
+                            >
+                                Capacity: {mosque.capacity}
+                            </Text>
+                        </View>
                     </View>
                 )}
 
