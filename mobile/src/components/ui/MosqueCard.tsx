@@ -37,7 +37,7 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress })
                             </Text>
                             <View style={styles.spacer} />
                             <Text style={[styles.cityStateText, { color: colors.content.tertiary }]} numberOfLines={1}>
-                                {mosque.address.city}, {mosque.address.state}
+                                {mosque.address.city}, {mosque.address.state} {mosque.address.pinCode}
                             </Text>
                         </View>
                     </View>
@@ -47,7 +47,7 @@ const MosqueCard: React.FC<MosqueCardProps> = ({ mosque, onPress, onViewPress })
             {/* Fixed Height Button Row */}
             <View style={styles.buttonRow}>
                 <TouchableOpacity
-                    style={styles.button}
+                    style={[styles.button, { backgroundColor: colors.interactive.secondary.default }]}
                     onPress={() => (onViewPress ? onViewPress(mosque) : onPress?.(mosque))}
                     activeOpacity={0.85}
                 >
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     addressText: {
-        ...Typography.bodyText.small,
+        fontSize: 12,
         lineHeight: 16,
     },
     cityStateText: {
-        ...Typography.captionText.medium,
-        lineHeight: 14,
+        fontSize: 12,
+        lineHeight: 16,
         marginTop: 4,
     },
     spacer: {
