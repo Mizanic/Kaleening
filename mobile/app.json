@@ -2,14 +2,15 @@
   "expo": {
     "name": "Kaleening",
     "slug": "kaleening",
-    "version": "1.0.0",
+    "version": "0.20250923.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "kaleening",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.kaleening"
     },
     "android": {
       "adaptiveIcon": {

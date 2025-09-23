@@ -66,9 +66,7 @@ const MosquesScreen: React.FC = () => {
 
                 <View style={styles.mosquesList}>
                     {mosques.map((mosque) => (
-                        <View key={mosque.id} style={styles.mosqueCardWrapper}>
-                            <MosqueCard mosque={mosque} onPress={handleMosquePress} showMapButton={true} />
-                        </View>
+                        <MosqueCard key={mosque.id} mosque={mosque} onPress={handleMosquePress} />
                     ))}
                 </View>
             </ScrollView>
@@ -84,7 +82,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollContent: {
-        padding: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 0,
     },
     centerContent: {
         flex: 1,
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 24,
-        paddingHorizontal: 4,
+        paddingHorizontal: 16,
     },
     title: {
         fontSize: Typography.heading.h1.fontSize,
@@ -118,10 +117,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     mosquesList: {
-        gap: 16,
-    },
-    mosqueCardWrapper: {
-        alignItems: "center",
+        gap: 0,
     },
 });
 
