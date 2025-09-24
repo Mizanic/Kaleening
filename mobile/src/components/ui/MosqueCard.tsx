@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     mosqueName: {
-        ...Typography.heading.h5,
+        fontSize: 14,
+        lineHeight: 16,
         fontWeight: "bold",
     },
     addressContainer: {
@@ -128,7 +129,6 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: "row",
         width: "100%",
-        height: 50, // Fixed button row height
     },
     button: {
         width: "50%",
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         gap: 8,
-        paddingVertical: 16,
+        paddingVertical: 12,
     },
     buttonText: {
         ...Typography.button.medium,
