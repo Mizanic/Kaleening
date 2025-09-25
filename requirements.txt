@@ -1,2 +1,2 @@
--r backend/requirements.txt
--e backend/src/shared
+-r aws/requirements.txt
+-e aws/src/shared

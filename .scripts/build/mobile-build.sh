@@ -6,8 +6,8 @@ set -euo pipefail
 
 # Absolute project root for WSL-friendly paths
 PROJECT_ROOT="/home/rehan/kaleening"
-MOBILE_DIR="$PROJECT_ROOT/app"
-ANDROID_DIR="$PROJECT_ROOT/app/android"
+MOBILE_DIR="$PROJECT_ROOT/mobile"
+ANDROID_DIR="$PROJECT_ROOT/mobile/android"
 APP_JSON_FILE="$MOBILE_DIR/app.json"
 
 today=$(date +%Y%m%d)
