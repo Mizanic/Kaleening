@@ -20,11 +20,16 @@ const LoginScreen: React.FC = () => {
             return;
         }
 
-        const success = await login(email, password);
-        if (success) {
+        const result = await login(email, password);
+        if (result.success) {
             router.replace("/private");
         } else {
-            Alert.alert("Error", "Invalid email or password");
+            const msg =
+                result.message ||
+                (result.code === "UserNotConfirmedException"
+                    ? "Your account is not confirmed. Please check your email for the confirmation link."
+                    : "Invalid email or password");
+            Alert.alert("Error", msg);
         }
     };
 

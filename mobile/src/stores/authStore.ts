@@ -9,8 +9,13 @@ import { CognitoAuth } from "@/services/auth";
 const AWS_REGION = process.env.EXPO_PUBLIC_CDK_AWS_REGION || "";
 const COGNITO_USER_POOL_CLIENT_ID = process.env.EXPO_PUBLIC_APP_CLIENT_ID || "";
 
-console.log("AWS_REGION", AWS_REGION);
-console.log("COGNITO_USER_POOL_CLIENT_ID", COGNITO_USER_POOL_CLIENT_ID);
+// Basic runtime validation to surface misconfiguration early
+const ENV_ERRORS: string[] = [];
+if (!AWS_REGION) ENV_ERRORS.push("EXPO_PUBLIC_CDK_AWS_REGION");
+if (!COGNITO_USER_POOL_CLIENT_ID) ENV_ERRORS.push("EXPO_PUBLIC_APP_CLIENT_ID");
+if (ENV_ERRORS.length) {
+    console.warn(`[Auth] Missing environment variables: ${ENV_ERRORS.join(", ")}`);
+}
 
 type AppUser = {
     email: string;
@@ -18,11 +23,17 @@ type AppUser = {
     family_name?: string;
 };
 
+interface AuthErrorInfo {
+    code?: string;
+    message?: string;
+}
+
 interface AuthState {
     user: AppUser | null;
     isLoading: boolean;
     isAuthenticated: boolean;
-    login: (email: string, password: string) => Promise<boolean>;
+    lastError: AuthErrorInfo | null;
+    login: (email: string, password: string) => Promise<{ success: true } | { success: false; code?: string; message?: string }>;
     logout: () => Promise<void>;
 }
 
@@ -49,15 +60,32 @@ export const useAuthStore = create<AuthState>()(
             user: auth.store.getState().user ?? null,
             isLoading: false,
             isAuthenticated: auth.isAuthenticated(),
+            lastError: null,
 
             login: async (email: string, password: string) => {
+                const username = email.trim().toLowerCase();
+                const pwd = password;
+                if (ENV_ERRORS.length) {
+                    console.error("[Auth] Cannot login due to missing env vars:", ENV_ERRORS);
+                    const error = { code: "EnvMissing", message: `Missing env vars: ${ENV_ERRORS.join(", ")}` } as const;
+                    set({ lastError: error });
+                    return { success: false, ...error };
+                }
+                set({ isLoading: true });
                 try {
-                    await auth.login(email, password);
+                    await auth.login(username, pwd);
                     const { user } = auth.store.getState();
-                    set({ user: user ?? null, isAuthenticated: !!user });
-                    return true;
-                } catch (e) {
-                    return false;
+                    set({ user: user ?? null, isAuthenticated: !!user, lastError: null });
+                    return { success: true } as const;
+                } catch (e: unknown) {
+                    const code = (e as any)?.code ?? (e as any)?.name;
+                    const message = (e as any)?.message;
+                    console.error(`[Auth] Login failed${code ? ` (${code})` : ""}${message ? `: ${message}` : ""}`, e);
+                    const error = { code, message } as const;
+                    set({ lastError: error });
+                    return { success: false, ...error };
+                } finally {
+                    set({ isLoading: false });
                 }
             },
 
