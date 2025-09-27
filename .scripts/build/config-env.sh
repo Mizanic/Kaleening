@@ -53,4 +53,13 @@ echo "PUBLIC_APP_CLIENT_ID=${APP_CLIENT_ID}" >> .env.web.local
 echo "SECRET_CDK_AWS_ACCOUNT=$ACCOUNT_ID" > .env.cdk.local
 echo "PUBLIC_CDK_AWS_REGION=$REGION" >> .env.cdk.local
 
+echo "Setting environment variables in the mise environment"
 mise set
+
+# Set the environment variables in the mobile app
+echo "Setting environment variables in the mobile app"
+
+echo "EXPO_PUBLIC_CDK_AWS_REGION=$REGION" > ../mobile/.env
+echo "EXPO_PUBLIC_BUCKET_NAME=$BUCKET_NAME" >> ../mobile/.env
+echo "EXPO_PUBLIC_API_ENDPOINT=$API_URL" >> ../mobile/.env
+echo "EXPO_PUBLIC_APP_CLIENT_ID=$APP_CLIENT_ID" >> ../mobile/.env
