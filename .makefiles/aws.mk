@@ -1,5 +1,5 @@
 # ===============================
-# Infrastructure Management
+# AWS Management
 # ===============================
 
 # --- Variables ---
@@ -7,7 +7,7 @@ STACK ?= --all
 FULL_STACK_NAME = $(if $(filter --all,$(STACK)),$(STACK),Kaleening-$(STACK)Stack)
 
 # ===============================
-# CDK INFRASTRUCTURE TARGETS
+# CDK AWS TARGETS
 # ===============================
 
 .PHONY: deploy hotswap destroy watch diff bootstrap
@@ -39,16 +39,6 @@ bootstrap:
 	cd $(BACKEND_DIR) && cdk bootstrap
 
 
-# --- Environment management ---
-deploy-dev:
-	@echo "🔧 Deploying to development environment..."
-	cd $(BACKEND_DIR) && cdk deploy --all --context env=dev
-
-deploy-prod:
-	@echo "🚀 Deploying to production environment..."
-	@echo "⚠️  Deploying to PRODUCTION!"
-	@read -p "Are you sure? (y/N): " confirm && [ "$$confirm" = "y" ] || exit 1
-	cd $(BACKEND_DIR) && cdk deploy --all --context env=prod --require-approval never
 
 # --- Utility targets ---
 list-stacks:
@@ -63,8 +53,31 @@ validate:
 	@echo "✅ Validating CDK app..."
 	cd $(BACKEND_DIR) && cdk doctor
 
-infrastructure-help:
-	@echo "🏗️  Infrastructure Commands:"
+
+
+# ===============================
+# Development targets
+# ===============================
+# --- Error Monitoring ---
+
+
+check-errors:
+	@echo "🔍 Checking Lambda errors..."
+	python3 $(AWS_SCRIPTS_DIR)/check_lambda_errors.py
+
+
+delete-logs:
+	@echo "🗑️  Deleting CloudWatch logs..."
+	$(AWS_SCRIPTS_DIR)/delete-logs.sh
+
+
+# ===============================
+# aws help
+# ===============================
+
+
+aws-help:
+	@echo "🏗️  AWS Commands:"
 	@echo "  deploy         Deploy stack(s) [STACK=name]"
 	@echo "  hotswap        Hotswap stack(s) for faster development"
 	@echo "  destroy        Destroy stack(s) (with confirmation)"
@@ -72,9 +85,14 @@ infrastructure-help:
 	@echo "  diff           Show differences before deployment"
 	@echo "  bootstrap      Bootstrap CDK environment"
 	@echo ""
-	@echo "  Stack shortcuts:"
+	@echo "  Utility targets for AWS:"
 	@echo ""
-	@echo "  Utilities:"
 	@echo "  list-stacks    List all available stacks"
 	@echo "  synth          Generate CloudFormation templates"
 	@echo "  validate       Validate CDK application" 
+	@echo ""
+	@echo "  Error Monitoring targets:"
+	@echo ""
+	@echo "  check-errors   Check Lambda errors"
+	@echo "  delete-logs    Delete CloudWatch logs"
+	@echo ""

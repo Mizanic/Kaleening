@@ -11,11 +11,6 @@ TEST_ENV ?= dev
 # ===============================
 
 
-
-test-reader:
-	@echo "🧪 Testing Lambda reader [SOURCE=$(SOURCE)]..."
-	$(AWS_SCRIPTS_DIR)/test-reader.sh $(SOURCE)
-
 test-all:
 	@echo "🔬 Running all tests..."
 	@$(MAKE) test-reader SOURCE=all
