@@ -5,7 +5,21 @@ import { useAuth } from "@/stores/authStore";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { getRandomBytes } from "expo-crypto";
 import "@/styles/global.css";
+
+// Set up global crypto object for AWS SDK
+if (typeof global.crypto === "undefined") {
+    global.crypto = {
+        getRandomValues: (array: any) => {
+            const randomBytes = getRandomBytes(array.length);
+            for (let i = 0; i < array.length; i++) {
+                array[i] = randomBytes[i];
+            }
+            return array;
+        },
+    } as any;
+}
 
 const RootLayout: React.FC = () => {
     const { isAuthenticated } = useAuth();
