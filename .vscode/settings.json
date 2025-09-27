@@ -17,11 +17,9 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "python.analysis.extraPaths": ["backend/src"],
     "terminal.integrated.env.linux": {
-        "PYTHONPATH": "${workspaceFolder}/backend/src"
+        "PYTHONPATH": "${workspaceFolder}/aws/src"
     },
-    "python.analysis.typeCheckingMode": "off",
-    "cursorpyright.analysis.extraPaths": ["backend/src"],
+    "cursorpyright.analysis.extraPaths": ["aws/src"],
     "cursorpyright.analysis.typeCheckingMode": "off"
 }

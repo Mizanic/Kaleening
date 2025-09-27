@@ -1,0 +1,39 @@
+---
+description: High-level specifications for the project
+globs:
+alwaysApply: true
+---
+
+I want to build a mobile app named "kaleening". Objective is to Offer carpet cleaning services to mosques.
+
+## Considerations
+
+### Mosques: Each mosque will have
+
+- Location including google map location
+- full address
+- size in carpet area
+- floors
+- authorized SPOC user
+
+### Users:
+
+- User can self register.
+- After they register they can request to become an authorized contact for a partical mosque.
+- This request has to be approved by either an admin or the authorized SPOC
+- An authorized contact can reqeust for a cleaning appointment
+- Can add new mosque for approval
+
+### Admins:
+
+- An admin is a user who has admin rights
+- Admin can view cleaning requests take action on them (e.g. schedule or close)
+- Admin can approve users as authorized contact
+- Admin can add new mosques or approve new mosques
+- Each user will register using email / phone.
+
+### Appointments
+
+- User can request an appointment
+- An admin will schedule the appointment
+- An admin can close the appointment
