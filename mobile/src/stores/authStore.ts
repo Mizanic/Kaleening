@@ -6,8 +6,11 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { CognitoAuth } from "@/services/auth";
 
-const AWS_REGION = process.env.EXPO_PUBLIC_AWS_REGION || "";
-const COGNITO_USER_POOL_CLIENT_ID = process.env.EXPO_PUBLIC_COGNITO_USER_POOL_CLIENT_ID || "";
+const AWS_REGION = process.env.EXPO_PUBLIC_CDK_AWS_REGION || "";
+const COGNITO_USER_POOL_CLIENT_ID = process.env.EXPO_PUBLIC_APP_CLIENT_ID || "";
+
+console.log("AWS_REGION", AWS_REGION);
+console.log("COGNITO_USER_POOL_CLIENT_ID", COGNITO_USER_POOL_CLIENT_ID);
 
 type AppUser = {
     email: string;
