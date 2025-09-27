@@ -64,7 +64,7 @@ fi
 
 
 # Create a new user in the admin user pool
-echo "Creating a new user in the admin user pool"
+echo "Creating a new user in the user pool"
 aws cognito-idp admin-create-user --user-pool-id $userPoolId --username $EMAIL --user-attributes Name="email",Value="$EMAIL"
 
 

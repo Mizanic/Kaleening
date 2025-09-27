@@ -7,10 +7,10 @@ LAYERS_DIR=.layers
 # Main requirements file
 MAIN_REQUIREMENTS_FILE=requirements.txt
 # Common requirements file
-COMMON_REQUIREMENTS_FILE=backend/src/fn/requirements.txt
+COMMON_REQUIREMENTS_FILE=aws/src/fn/requirements.txt
 COMMON_OUTPUT_DIR=${LAYERS_DIR}/common/python
 
-SHARED_LIB_CODE_DIR=backend/src/shared
+SHARED_LIB_CODE_DIR=aws/src/shared
 
 # Create the layers directory
 rm -rf ${LAYERS_DIR}
@@ -20,11 +20,11 @@ mkdir -p ${LAYERS_DIR}
 mkdir -p ${COMMON_OUTPUT_DIR}
 
 # Download the dependencies for layers
-python -m pip install -r ${COMMON_REQUIREMENTS_FILE} --target ${COMMON_OUTPUT_DIR} --upgrade
+uv pip install -r ${COMMON_REQUIREMENTS_FILE} --target ${COMMON_OUTPUT_DIR} --upgrade
 
 # Install all the dependencies for offline development users
 echo "Installing dependencies in virtual environment"
-python -m pip install -r ${MAIN_REQUIREMENTS_FILE} --upgrade
+uv pip install -r ${MAIN_REQUIREMENTS_FILE} --upgrade
 
 
 
