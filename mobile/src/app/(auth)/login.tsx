@@ -22,7 +22,7 @@ const LoginScreen: React.FC = () => {
 
         const success = await login(email, password);
         if (success) {
-            router.replace("/(auth)/login");
+            router.replace("/private");
         } else {
             Alert.alert("Error", "Invalid email or password");
         }

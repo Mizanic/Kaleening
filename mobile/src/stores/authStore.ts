@@ -1,139 +1,77 @@
 /**
- * Auth Store - State Management Only
- *
- * Clean state management for authentication.
- * Uses AuthService for all authentication logic.
+ * App Auth Store (wraps standalone auth library)
  */
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { AuthService } from "@/services/authService";
+import { CognitoAuth } from "@/services/auth";
 
-interface User {
-    id: string;
+const AWS_REGION = process.env.EXPO_PUBLIC_AWS_REGION || "";
+const COGNITO_USER_POOL_CLIENT_ID = process.env.EXPO_PUBLIC_COGNITO_USER_POOL_CLIENT_ID || "";
+
+type AppUser = {
     email: string;
-    name: string;
-}
+    given_name?: string;
+    family_name?: string;
+};
 
 interface AuthState {
-    // State
-    user: User | null;
+    user: AppUser | null;
     isLoading: boolean;
     isAuthenticated: boolean;
-
-    // Actions
     login: (email: string, password: string) => Promise<boolean>;
-    signup: (email: string, password: string, name: string) => Promise<boolean>;
     logout: () => Promise<void>;
-    setUser: (user: User | null) => void;
-    setLoading: (loading: boolean) => void;
 }
+
+const auth = new CognitoAuth({
+    region: AWS_REGION,
+    userPoolClientId: COGNITO_USER_POOL_CLIENT_ID,
+    persist: true,
+    // Use AsyncStorage persistence beneath our library store
+    storage: {
+        getItem: (k: string) => AsyncStorage.getItem(k) as unknown as string | null,
+        setItem: (k: string, v: string) => {
+            void AsyncStorage.setItem(k, v);
+        },
+        removeItem: (k: string) => {
+            void AsyncStorage.removeItem(k);
+        },
+    },
+    storageKey: "@auth/store",
+});
 
 export const useAuthStore = create<AuthState>()(
     persist(
-        (set, get) => ({
-            // Initial state
-            user: null,
-            isLoading: true, // Start with loading until rehydration
-            isAuthenticated: false,
+        (set) => ({
+            user: auth.store.getState().user ?? null,
+            isLoading: false,
+            isAuthenticated: auth.isAuthenticated(),
 
-            // Set user (used by auth service and rehydration)
-            setUser: (user: User | null) => {
-                set({
-                    user,
-                    isAuthenticated: !!user,
-                    isLoading: false,
-                });
-            },
-
-            // Set loading state
-            setLoading: (isLoading: boolean) => {
-                set({ isLoading });
-            },
-
-            // Login action - delegates to AuthService
-            login: async (email: string, password: string): Promise<boolean> => {
-                const { setLoading, setUser } = get();
-
-                setLoading(true);
+            login: async (email: string, password: string) => {
                 try {
-                    const user = await AuthService.login({ email, password });
-                    setUser(user);
+                    await auth.login(email, password);
+                    const { user } = auth.store.getState();
+                    set({ user: user ?? null, isAuthenticated: !!user });
                     return true;
-                } catch (error) {
-                    console.error("Login failed:", error);
-                    setLoading(false);
+                } catch (e) {
                     return false;
                 }
             },
 
-            // Signup action - delegates to AuthService
-            signup: async (email: string, password: string, name: string): Promise<boolean> => {
-                const { setLoading, setUser } = get();
-
-                setLoading(true);
-                try {
-                    const user = await AuthService.signup({ email, password, name });
-                    setUser(user);
-                    return true;
-                } catch (error) {
-                    console.error("Signup failed:", error);
-                    setLoading(false);
-                    return false;
-                }
-            },
-
-            // Logout action - delegates to AuthService
-            logout: async (): Promise<void> => {
-                const { setUser } = get();
-
-                try {
-                    await AuthService.logout();
-                    setUser(null);
-                } catch (error) {
-                    console.error("Logout error:", error);
-                    // Even if logout fails, clear local state
-                    setUser(null);
-                }
+            logout: async () => {
+                await auth.logout();
+                set({ user: null, isAuthenticated: false });
             },
         }),
         {
             name: "auth-storage",
             storage: createJSONStorage(() => AsyncStorage),
-            // Only persist user data
-            partialize: (state) => ({ user: state.user }),
-            // Handle rehydration
-            onRehydrateStorage: () => (state) => {
-                if (state) {
-                    // Sync authentication state with rehydrated user
-                    state.isAuthenticated = !!state.user;
-                    state.isLoading = false;
-
-                    // Optional: Validate session on rehydration
-                    if (state.user) {
-                        AuthService.validateSession(state.user).then((isValid: boolean) => {
-                            if (!isValid) {
-                                // Session invalid, clear user
-                                useAuthStore.getState().setUser(null);
-                            }
-                        });
-                    }
-                }
-            },
+            partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
         },
     ),
 );
 
-// Convenience hook that matches the old interface
 export const useAuth = () => {
-    const { user, isLoading, isAuthenticated, login, signup, logout } = useAuthStore();
-
-    return {
-        user,
-        isLoading,
-        isAuthenticated,
-        login,
-        signup,
-        logout,
-    };
+    const { user, isLoading, isAuthenticated, login, logout } = useAuthStore();
+    return { user, isLoading, isAuthenticated, login, logout };
 };
