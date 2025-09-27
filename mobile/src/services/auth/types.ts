@@ -1,11 +1,5 @@
 import { z } from "zod";
 
-export enum TokenType {
-    Access = "access",
-    Refresh = "refresh",
-    Id = "id",
-}
-
 export interface TokenPayload {
     exp: number;
     [key: string]: any;
@@ -15,6 +9,31 @@ export type AuthResult = {
     AccessToken?: string;
     IdToken?: string;
     RefreshToken?: string;
+};
+
+// v2 additions for framework-agnostic package shape
+export type TokenSet = {
+    accessToken?: string;
+    idToken?: string;
+    refreshToken?: string;
+};
+
+export type AuthStatus =
+    | { state: "signed_out" }
+    | { state: "needs_confirmation"; username: string }
+    | { state: "signed_in"; user: UserAttributes; tokens: TokenSet };
+
+export type AuthEvents = {
+    onSignedIn?: (status: Extract<AuthStatus, { state: "signed_in" }>) => void;
+    onSignedOut?: () => void;
+    onTokenRefreshed?: (tokens: TokenSet) => void;
+};
+
+export type AuthConfig = {
+    region: string;
+    userPoolClientId: string;
+    // Optional: override client creation (useful for SSR or custom transports)
+    cognitoClientFactory?: () => any;
 };
 
 export const UserSchema = z.object({
